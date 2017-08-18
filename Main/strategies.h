@@ -21,4 +21,13 @@ void radar() {
   avoidEdge();
 }
 
+void avoidEdge() {
+  if (anyEdge()) {
+    backwards();
+    delay(delayBackEdge);
+    move(0, lastToSee);
+    delay(delaySpinEdge);
+  }
+}
+
 #endif
