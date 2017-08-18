@@ -13,7 +13,10 @@
 #define leftIR 10
 #define rightIR 9
 #define button 5
+#define leftEdge 16
+#define rightEdge 17
 
+#define edgeLimit 600
 #define maxPWM 200
 
 #define SWITCH_ONE             4
@@ -31,7 +34,9 @@ void initialSet() {
   pinMode(rightWheelP2, OUTPUT);
   pinMode(leftIR, INPUT);
   pinMode(rightIR, INPUT);
-  pinMode(receptor, INPUT);
+  pinMode(leftEdge, INPUT);
+  pinMode(rightEdge, INPUT);
+  pinMode(button, INPUT);
   pinMode(SWITCH_ONE, INPUT);
   pinMode(SWITCH_TWO, INPUT);
   pinMode(SWITCH_THREE, INPUT);
