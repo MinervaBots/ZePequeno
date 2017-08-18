@@ -1,9 +1,9 @@
-#include "receptor.h"
+#include "button.h"
 #include "strategies.h"
 
 void setup() {
   initialSet(); // constants.h
-  waitReceptor(); // receptor.h
+  waitButton(); // receptor.h
   delay(5000);
 }
 
