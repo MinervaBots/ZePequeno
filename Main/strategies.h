@@ -7,6 +7,7 @@
 #define STRATEGIES_H
 
 void radar();
+void star();
 void avoidEdge();
 
 void radar() {
@@ -17,6 +18,17 @@ void radar() {
   }
   else {
     move(0, lastToSee);
+  }
+  avoidEdge();
+}
+
+void star() {
+  if (anyIR) {
+    int side = readIRs();
+    move(1, side);  
+  }
+  else {
+    move(1, 0);
   }
   avoidEdge();
 }
