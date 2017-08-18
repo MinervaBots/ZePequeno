@@ -18,6 +18,8 @@
 
 #define edgeLimit 600
 #define maxPWM 200
+#define delayBackEdge 50
+#define delaySpinEdge 50
 
 #define SWITCH_ONE             4
 #define SWITCH_TWO             3
