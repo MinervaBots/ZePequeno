@@ -6,11 +6,14 @@
 #ifndef STRATEGIES_H
 #define STRATEGIES_H
 
-void radar();
-void star();
+void radarSearch();
+void starSearch();
+void archSearch();
 void avoidEdge();
+void archStart(bool);
+void backwardStart();
 
-void radar() {
+void radarSearch() {
   if (anyIR) {
     int side = readIRs();
     move(1, side);
@@ -22,13 +25,13 @@ void radar() {
   avoidEdge();
 }
 
-void star() {
+void starSearch() {
   if (anyIR) {
     int side = readIRs();
     move(1, side);  
   }
   else {
-    move(1, 0);
+    forward();
   }
   avoidEdge();
 }
@@ -40,6 +43,16 @@ void avoidEdge() {
     move(0, lastToSee);
     delay(delaySpinEdge);
   }
+}
+
+void archStart(bool right) {
+  move(-1, 0.5 - (not left));
+  delay(delayArchStart);
+}
+
+void backwardStart() {
+  backwards();
+  delay(delayBackStart);
 }
 
 #endif
