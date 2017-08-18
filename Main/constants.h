@@ -16,10 +16,10 @@
 #define leftEdge 16
 #define rightEdge 17
 
-#define edgeLimit 600
-#define maxPWM 200
-#define delayBackEdge 50
-#define delaySpinEdge 50
+#define edgeLimit 600 //test
+#define maxPWM 200 //test
+#define delayBackEdge 50 //test
+#define delaySpinEdge 50 //test
 
 #define SWITCH_ONE             4
 #define SWITCH_TWO             3
