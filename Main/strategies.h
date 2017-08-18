@@ -6,6 +6,9 @@
 #ifndef STRATEGIES_H
 #define STRATEGIES_H
 
+void radar();
+void avoidEdge();
+
 void radar() {
   if (anyIR) {
     int side = readIRs();
@@ -15,6 +18,7 @@ void radar() {
   else {
     move(0, lastToSee);
   }
+  avoidEdge();
 }
 
 #endif
