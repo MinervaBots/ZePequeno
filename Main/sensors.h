@@ -9,6 +9,12 @@ int lastToSee = -1;
 bool readIR(bool);
 int readIRs();
 bool anyIR();
+bool readEdge(bool);
+
+bool readEdge(bool right) {
+  if (right) {
+    return (analogRead(rightEdge) < edgeLimit);
+  return (analogRead(leftEdge) < edgeLimit);
 
 bool readIR(bool right) {
   if (right) {
