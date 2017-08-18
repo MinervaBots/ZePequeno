@@ -46,7 +46,7 @@ void avoidEdge() {
 }
 
 void archStart(bool right) {
-  move(-1, 0.5 - (not left));
+  move(-1, 0.5 - (not right));
   delay(delayArchStart);
 }
 
