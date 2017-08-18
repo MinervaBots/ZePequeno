@@ -12,7 +12,7 @@
 #define rightWheelP2 19
 #define leftIR 10
 #define rightIR 9
-#define receptor 5
+#define button 5
 
 #define maxPWM 200
 
