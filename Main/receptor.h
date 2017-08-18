@@ -2,16 +2,16 @@
 #include "constants.h"
 #include "motors.h"
 
-#ifndef RECEPTOR_H
-#define RECEPTOR_H
+#ifndef BUTTON_H
+#define BUTTON_H
 
-void waitReceptor() {
-  while (not digitalRead(receptor)) {
+void waitButton() {
+  while (not digitalRead(button)) {
   }
 }
 
 void verifyToStop() {
-  while (digitalRead(receptor)) {
+  while (digitalRead(button)) {
     stop();
   }
 }
