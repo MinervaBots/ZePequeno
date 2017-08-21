@@ -3,11 +3,14 @@
 
 void setup() {
   initialSet(); // constants.h
-  waitButton(); // receptor.h
+  verifyStartStrategy(); // strategies.h
+  verifySearchStrategy(); // strategies.h
+  waitButton(); // button.h
   delay(5000);
+  startStrategy(); // strategies.h
 }
 
 void loop() {
-  radar(); // strategies.h
+  searchStrategy(); // strategies.h
   verifyToStop(); // button.h
 }
