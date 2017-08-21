@@ -11,6 +11,20 @@ int readIRs();
 bool anyIR();
 bool readEdge(bool);
 bool anyEdge();
+bool strategyButton(int);
+
+bool strategyButton(int button) {
+  if (button == 1) {
+    return digitalRead(SWITCH_ONE);
+  }
+  if (button == 2) {
+    return digitalRead(SWITCH_TWO);
+  }
+  if (button == 3) {
+    return digitalRead(SWITCH_THREE);
+  }
+  return digitalRead(SWITCH_ONE);
+}
 
 bool readEdge(bool right) {
   if (right) {
