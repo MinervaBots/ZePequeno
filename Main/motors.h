@@ -28,8 +28,8 @@ void move(float linear, float angular) { // from -1 to 1
   }
   int rightPWM = speedToPWM(rightSpeed);
   int leftPWM = speedToPWM(leftSpeed);
-  bool rightForward = 1 + (rightPWM/abs(rightPWM))/2;
-  bool leftForward = 1 + (leftPWM/abs(leftPWM))/2;   
+  bool rightForward = (1 + rightPWM/abs(rightPWM))/2;
+  bool leftForward = (1 + leftPWM/abs(leftPWM))/2;   
   digitalWrite(rightWheelP1, rightForward);
   digitalWrite(rightWheelP2, not rightForward);
   digitalWrite(leftWheelP1, leftForward);
