@@ -23,7 +23,7 @@
 #define attackF1delay 50 // test
 #define attackF2delay 50 // test
 #define attackS1delay 50 // test
-#define attackS@delay 50 // test
+#define attackS2delay 50 // test
 
 #define SWITCH_ONE             4
 #define SWITCH_TWO             3
