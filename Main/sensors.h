@@ -23,7 +23,7 @@ bool strategyButton(int button) {
   if (button == 3) {
     return digitalRead(SWITCH_THREE);
   }
-  return digitalRead(SWITCH_ONE);
+  return digitalRead(SWITCH_FOUR);
 }
 
 bool readEdge(bool right) {
