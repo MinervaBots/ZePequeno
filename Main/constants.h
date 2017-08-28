@@ -16,6 +16,7 @@
 #define leftEdge 16
 #define rightEdge 17
 
+#define accelerationRate 1 // test
 #define edgeLimit 600 // test
 #define maxPWM 200 // test
 #define delayBackEdge 50 // test
@@ -29,6 +30,8 @@
 #define SWITCH_TWO             3
 #define SWITCH_THREE           2
 #define SWITCH_FOUR            1
+
+int forwardSpeed = 0;
 
 void initialSet() {
   pinMode(led, OUTPUT);
