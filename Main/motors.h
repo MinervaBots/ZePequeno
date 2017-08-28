@@ -40,14 +40,17 @@ void move(float linear, float angular) { // from -1 to 1
 
 void stop() {
   move(0,0);
+  forwardSpeed = 0;
 }
 
 void forward() {
-  move(1,0);
+  move(forwardSpeed,0);
+  forwardSpeed = max(1, forwardSpeed + accelerationRade);
 }
 
 void backwards() {
   move(-1,0);
+  forwardSpeed = 0;
 }
 
 void spin(bool right) {
@@ -57,6 +60,7 @@ void spin(bool right) {
   else {
     move(0,-1);
   }
+  forwardSpeed = 0;
 }
 
 #endif
