@@ -107,6 +107,7 @@ void spinStartLeft() {
 }
 
 void attackStartRight() {
+  forwardSpeed = 1;
   forward();
   delay(attackF1delay);
   spin(0);
@@ -118,6 +119,7 @@ void attackStartRight() {
 }
   
 void attackStartLeft() {
+  forwardSpeed = 1;
   forward();
   delay(attackF1delay);
   spin(1);
