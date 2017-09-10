@@ -2,8 +2,8 @@
 #include "constants.h"
 #include "motors.h"
 
-#ifndef BUTTON_H
-#define BUTTON_H
+#ifndef BLUETOOTH_H
+#define BLUETOOTH_H
 
 void waitButton() {
   bool ready = false;
