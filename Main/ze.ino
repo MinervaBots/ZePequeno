@@ -5,7 +5,7 @@ void setup() {
   initialSet(); // constants.h
   verifyStartStrategy(); // strategies.h
   verifySearchStrategy(); // strategies.h
-  waitButton(); // button.h
+  waitBluetooth(); // button.h
   delay(5000);
   startStrategy(); // strategies.h
 }
