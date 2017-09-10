@@ -6,13 +6,18 @@
 #define BUTTON_H
 
 void waitButton() {
-  while (not digitalRead(button)) {
+  bool ready = false;
+  while (not ready) {
+    if (bluetooth.available() > 0) {
+      ready = (bluetooth.read() == 1);
   }
 }
 
 void verifyToStop() {
-  while (digitalRead(button)) {
-    stop();
+  if (bluetooth.available() > 0) {
+    if bluetooth.read() == 0 {
+      while(true) {}
+    }
   }
 }
 
