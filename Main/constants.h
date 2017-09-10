@@ -3,6 +3,10 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+#include "SoftwareSerial.h"
+
+SoftwareSerial bluetooth(2, 3); // verify pins (TX,RX)
+
 #define led 0
 #define leftWheelPWM 20
 #define rightWheelPWM 21
