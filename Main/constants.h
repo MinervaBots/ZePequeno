@@ -38,6 +38,9 @@ SoftwareSerial bluetooth(2, 3); // verify pins (TX,RX)
 int forwardSpeed = 0;
 
 void initialSet() {
+  
+  bluetooth.begin(9600);
+  
   pinMode(led, OUTPUT);
   pinMode(leftWheelPWM, OUTPUT);
   pinMode(rightWheelPWM, OUTPUT);
