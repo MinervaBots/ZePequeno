@@ -1,11 +1,12 @@
-#include "bluetooth.h"
+#include "startStop.h"
 #include "strategies.h"
 
 void setup() {
   initialSet(); // constants.h
   verifyStartStrategy(); // strategies.h
   verifySearchStrategy(); // strategies.h
-  waitBluetooth(); // button.h
+  waitButton(); // startStop
+  // waitBluetooth(); // startStop.h
   delay(5000);
   startStrategy(); // strategies.h
 }
