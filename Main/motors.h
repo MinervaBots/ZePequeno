@@ -45,7 +45,7 @@ void stop() {
 
 void forward() {
   move(forwardSpeed,0);
-  forwardSpeed = max(1, forwardSpeed + accelerationRade);
+  forwardSpeed = max(1, forwardSpeed + accelerationRate);
 }
 
 void backwards() {
