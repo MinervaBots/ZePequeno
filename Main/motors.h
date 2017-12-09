@@ -30,8 +30,8 @@ void move(float linear, float angular) { // from -1 to 1
   int leftPWM = speedToPWM(leftSpeed);
   bool rightForward = (1 + rightPWM/abs(rightPWM))/2;
   bool leftForward = (1 + leftPWM/abs(leftPWM))/2;   
-  digitalWrite(rightWheelP1, rightForward);
-  digitalWrite(rightWheelP2, not rightForward);
+  digitalWrite(rightWheelP1, not rightForward);
+  digitalWrite(rightWheelP2, rightForward);
   digitalWrite(leftWheelP1, leftForward);
   digitalWrite(leftWheelP2, not leftForward);
   analogWrite(rightWheelPWM, abs(rightPWM));
@@ -52,7 +52,7 @@ void backwards() {
   move(-1,0);
   forwardSpeed = 0;
 }
-
+/*
 void spin(bool right) {
   if (right) {
     move(0,1);
@@ -61,6 +61,16 @@ void spin(bool right) {
     move(0,-1);
   }
   forwardSpeed = 0;
+}
+*/
+
+void spin(bool right) {
+  digitalWrite(rightWheelP1, not right);
+  digitalWrite(rightWheelP2, right);
+  digitalWrite(leftWheelP1, not right);
+  digitalWrite(leftWheelP2, right);
+  analogWrite(rightWheelPWM, maxPWM);
+  analogWrite(leftWheelPWM, maxPWM);
 }
 
 #endif
