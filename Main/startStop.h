@@ -16,19 +16,25 @@ void waitBluetooth() {
 
 void verifyToStopBluetooth() {
   if (bluetooth.available() > 0) {
-    if bluetooth.read() == 0 {
+    if (bluetooth.read() == 0) {
       while(true) {}
     }
   }
 }
 
 void waitButton() {
-    while (not digitalRead(button)) {}
+  while (1) {
+    if (button1.pressed()) {
+      break;
+    }
+  }
   }
 
 void verifyToStopButton() {
-  if (digitalRead(button)) {
-    while(true) {}
+  if (button1.pressed()) {
+    while(1){
+      stop();
+      }
   }
 }
   
