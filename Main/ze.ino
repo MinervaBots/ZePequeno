@@ -6,7 +6,7 @@ void setup() {
   verifyStartStrategy(); // strategies.h
   verifySearchStrategy(); // strategies.h
   waitButton(); // startStop.h
-  // waitBluetooth(); // startStop.h
+  //waitBluetooth(); // startStop.h
   delay(5000);
   startStrategy(); // strategies.h
 }
@@ -14,5 +14,5 @@ void setup() {
 void loop() {
   searchStrategy(); // strategies.h
   verifyToStopButton(); // startStop.h
-  // verifyToStopBluetooth(); // startStop.h
+  //verifyToStopBluetooth(); // startStop.h
 }
