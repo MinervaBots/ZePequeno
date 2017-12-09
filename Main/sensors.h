@@ -13,14 +13,14 @@ bool readEdge(bool);
 bool anyEdge();
 bool strategyButton(int);
 
-bool strategyButton(int button) {
-  if (button == 1) {
+bool strategyButton(int selectionButton) {
+  if (selectionButton == 1) {
     return digitalRead(SWITCH_ONE);
   }
-  if (button == 2) {
+  if (selectionButton == 2) {
     return digitalRead(SWITCH_TWO);
   }
-  if (button == 3) {
+  if (selectionButton == 3) {
     return digitalRead(SWITCH_THREE);
   }
   return digitalRead(SWITCH_FOUR);
@@ -29,10 +29,13 @@ bool strategyButton(int button) {
 bool readEdge(bool right) {
   if (right) {
     return (analogRead(rightEdge) < edgeLimit);
+  }
   return (analogRead(leftEdge) < edgeLimit);
+}
     
 bool anyEdge() {
   return (readEdge(0) || readEdge(1));
+}
 
 bool readIR(bool right) {
   if (right) {
