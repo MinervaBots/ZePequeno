@@ -6,8 +6,8 @@
 #ifndef STRATEGIES_H
 #define STRATEGIES_H
 
-void starSearch();          // xxx0
-void radarSearch();         // xxx1
+void starSearch();          // xxx1
+void radarSearch();         // xxx0
 
 void nothing();             // 000x
 void backwardStart();       // 001x
@@ -27,43 +27,63 @@ void (*searchStrategy)();
 void (*startStrategy)();
 
 void verifyStartStrategy() {
-  if (not strategyButton(1)) {
-    if (strategyButton(2)) {
-      startStrategy = backwardStart;
-    }
-  else {
-    if (not strategyButton(2)) {
-      startStrategy = archStart;
-    }
-    else {
-      startStrategy = surpriseAttackStart;
-    }
+  if ((not strategyButton(1)) and (not strategyButton(2)) and (not strategyButton(3))) { //000x
+    startStrategy = &nothing;
+  }
+  if ((not strategyButton(1)) and (not strategyButton(2)) and (strategyButton(3))) { //001x
+    startStrategy = &backwardStart;
+  }
+  if ((not strategyButton(1)) and (strategyButton(2)) and (not strategyButton(3))) { //010x
+    startStrategy = &archStartRight;
+  }
+  if ((not strategyButton(1)) and (strategyButton(2)) and (strategyButton(3))) { //011x
+    startStrategy = &archStartLeft;
+  }
+  if ((strategyButton(1)) and (not strategyButton(2)) and (not strategyButton(3))) { //100x
+    startStrategy = &attackStartRight;
+  }
+  if ((strategyButton(1)) and (not strategyButton(2)) and (strategyButton(3))) { //101x
+    startStrategy = &attackStartLeft;
+  }
+  if ((strategyButton(1)) and (strategyButton(2)) and (not strategyButton(3))) { //110x
+    startStrategy = &spinStartLeft;
+  }
+  if ((strategyButton(1)) and (strategyButton(2)) and (strategyButton(3))) { //111x
+    startStrategy = &spinStartRight;
   }
 }
   
 void verifySearchStrategy() {
-  if strategyButton(1) {
-    searchStrategy = radarSearch;
+  /*if (strategyButton(4)) { //xxx1
+    searchStrategy = &radarSearch;
   }
-  else {
-    searchStrategy = starSearch;
+  else { //xxx0
+    searchStrategy = &starSearch;
   }
+  */
+  searchStrategy = &radarSearch;
 }
 
 void radarSearch() {
-  if (anyIR) {
+  if (anyIR()) {
     int side = readIRs();
     move(1, side);
-    lastToSee = side;    
+    lastToSee = side;
+    //Serial.println(side);  
   }
   else {
-    move(0, lastToSee);
+    if (lastToSee == -1) {
+      spin(false);
+    }
+    else {
+      spin(true);
+    }
   }
   avoidEdge();
 }
 
 void starSearch() {
-  if (anyIR) {
+  if (anyIR()) {
     int side = readIRs();
     move(1, side);
     lastToSee = side;
@@ -102,7 +122,7 @@ void spinStartLeft() {
   lastToSee = -1;
 }
   
-void spinStartLeft() {
+void spinStartRight() {
   lastToSee = 1;
 }
 
