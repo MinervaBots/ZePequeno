@@ -20,4 +20,3 @@ void loop() {
   verifyToStopButton(); // startStop.h
   //verifyToStopBluetooth(); // startStop.h
 }
-

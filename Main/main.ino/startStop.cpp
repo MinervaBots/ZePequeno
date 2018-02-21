@@ -2,9 +2,6 @@
 #include "constants.h"
 #include "motors.h"
 
-#ifndef STARTSTOP_H
-#define STARTSTOP_H
-
 void waitBluetooth() {
   bool ready = false;
   while (not ready) {
@@ -38,6 +35,3 @@ void verifyToStopButton() {
   }
 }
   
-
-#endif
-

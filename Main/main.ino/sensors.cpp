@@ -1,18 +1,6 @@
 #include <Arduino.h>
 #include "constants.h"
 
-#ifndef SENSORS_H
-#define SENSORS_H
-
-int lastToSee = -1;
-
-bool readIR(bool);
-int readIRs();
-bool anyIR();
-bool readEdge(bool);
-bool anyEdge();
-bool strategyButton(int);
-
 bool strategyButton(int selectionButton) {
   if (selectionButton == 1) {
     return digitalRead(SWITCH_ONE);
@@ -51,6 +39,3 @@ int readIRs() {
 bool anyIR() {
   return (readIR(0) || readIR(1));
 }
-
-#endif
-
