@@ -21,20 +21,20 @@ SoftwareSerial bluetooth(9, 10); // verify pins (TX,RX)
 #define leftEdge 16
 #define rightEdge 17
 
-#define accelerationRate 1 // test
+#define accelerationRate 0.8 // test
 #define edgeLimit 600 // test
-#define maxPWM 50 // test
+#define maxPWM 100 // test
 #define delayBackStart 50 // test
 #define delayArchStart 50 // test
-#define delayBackEdge 50 // test
-#define delaySpinEdge 50 // test
+#define delayBackEdge 300 // test
+#define delaySpinEdge 200 // test
 #define attackF1delay 50 // test
 #define attackF2delay 50 // test
 #define attackS1delay 50 // test
 #define attackS2delay 50 // test
 
 #define SWITCH_ONE             4
-#define SWITCH_TWO             3 // não funcionando
+#define SWITCH_TWO             3 // nÃ£o funcionando
 #define SWITCH_THREE           2
 #define SWITCH_FOUR            1
 
@@ -66,3 +66,4 @@ void initialSet() {
 }
 
 #endif
+
