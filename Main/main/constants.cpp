@@ -1,11 +1,6 @@
 #include <Arduino.h>
 
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
-
-#include "SoftwareSerial.h"
-#include "Button.h"
-
+#include "constants.h"
 
 void initialSet() {     
   

@@ -1,5 +1,6 @@
 // implementar rampa de aceleraÃ§Ã£o
 
+#include "constants.h"
 #include "startStop.h"
 #include "strategies.h"
 

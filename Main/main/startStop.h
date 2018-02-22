@@ -6,6 +6,4 @@ void verifyToStopBluetooth();
 void waitButton();
 void verifyToStopButton();
 
-
-
 #endif

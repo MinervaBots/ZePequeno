@@ -1,4 +1,20 @@
-SoftwareSerial bluetooth(9, 10); // verify pins (TX,RX)
+#include "SoftwareSerial.h"
+#include "Button.h"
+
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
+
+#define accelerationRate 0.8 // test
+#define edgeLimit 600 // test
+#define maxPWM 100 // test
+#define delayBackStart 50 // test
+#define delayArchStart 50 // test
+#define delayBackEdge 300 // test
+#define delaySpinEdge 200 // test
+#define attackF1delay 50 // test
+#define attackF2delay 50 // test
+#define attackS1delay 50 // test
+#define attackS2delay 50 // test
 
 #define led 0
 #define leftWheelPWM 21
@@ -13,25 +29,15 @@ SoftwareSerial bluetooth(9, 10); // verify pins (TX,RX)
 #define leftEdge 16
 #define rightEdge 17
 
-#define accelerationRate 0.8 // test
-#define edgeLimit 600 // test
-#define maxPWM 100 // test
-#define delayBackStart 50 // test
-#define delayArchStart 50 // test
-#define delayBackEdge 300 // test
-#define delaySpinEdge 200 // test
-#define attackF1delay 50 // test
-#define attackF2delay 50 // test
-#define attackS1delay 50 // test
-#define attackS2delay 50 // test
-
 #define SWITCH_ONE             4
 #define SWITCH_TWO             3 // nÃ£o funcionando
 #define SWITCH_THREE           2
 #define SWITCH_FOUR            1
 
-int forwardSpeed = 0;
+SoftwareSerial bluetooth(9, 10); // verify pins (TX,RX)
 Button button1(button);
+
+int forwardSpeed = 0;
 
 void initialSet();
 

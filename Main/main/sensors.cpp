@@ -15,10 +15,7 @@ bool strategyButton(int selectionButton) {
 }
 
 bool readEdge(bool right) {
-  if (right) {
-    return (analogRead(rightEdge) < edgeLimit);
-  }
-  return (analogRead(leftEdge) < edgeLimit);
+  return (right ? (analogRead(rightEdge)  < edgeLimit) : analogRead(leftEdge)  < edgeLimit);
 }
     
 bool anyEdge() {
@@ -26,10 +23,7 @@ bool anyEdge() {
 }
 
 bool readIR(bool right) {
-  if (right) {
-    return (digitalRead(rightIR));
-  }
-  return (digitalRead(leftIR));
+  return right ? (digitalReadFast(rightIR)) : (digitalReadFast(leftIR));
 }
 
 int readIRs() {

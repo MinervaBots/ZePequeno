@@ -1,3 +1,5 @@
+#include "sensors.h"
+
 #ifndef STRATEGIES_H
 #define STRATEGIES_H
 
