@@ -1,6 +1,3 @@
-#include "SoftwareSerial.h"
-#include "Button.h"
-
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
@@ -34,12 +31,6 @@
 #define SWITCH_THREE           2
 #define SWITCH_FOUR            1
 
-SoftwareSerial bluetooth(9, 10); // verify pins (TX,RX)
-Button button1(button);
-
-int forwardSpeed = 0;
-
-void initialSet();
 
 #endif
 

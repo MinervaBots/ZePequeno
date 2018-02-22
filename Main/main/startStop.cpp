@@ -1,6 +1,10 @@
 #include <Arduino.h>
+#include "startStop.h"
 #include "constants.h"
 #include "motors.h"
+
+Button button1(button);
+SoftwareSerial bluetooth(9, 10);
 
 void waitBluetooth() {
   bool ready = false;

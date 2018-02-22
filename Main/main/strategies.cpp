@@ -2,8 +2,10 @@
 
 #include "motors.h"
 #include "sensors.h"
+#include "strategies.h"
 #include "constants.h"
 
+int lastToSee = -1;
 void (*searchStrategy)();
 void (*startStrategy)();
 

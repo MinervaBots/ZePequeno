@@ -1,5 +1,3 @@
-#include <Arduino.h>
-
 #ifndef MOTORS_H
 #define MOTORS_H
 
@@ -9,6 +7,8 @@ void forward();
 void backwards();
 void spin(bool);
 int speedToPWM(float);
+
+extern int forwardSpeed;
 
 #endif
 

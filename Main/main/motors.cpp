@@ -1,7 +1,9 @@
 #include <Arduino.h>
-
+#include "motors.h"
 #include "constants.h"
  
+int forwardSpeed = 0;
+
 int speedToPWM(float velocity) {
   return int(velocity * maxPWM);
 }

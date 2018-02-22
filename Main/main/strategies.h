@@ -1,5 +1,3 @@
-#include "sensors.h"
-
 #ifndef STRATEGIES_H
 #define STRATEGIES_H
 
@@ -20,8 +18,9 @@ void avoidEdge();
 void verifyStartStrategy();
 void verifySearchStrategy();
 
-void (*searchStrategy)();
-void (*startStrategy)();
+extern int lastToSee;
+extern void (*searchStrategy)();
+extern void (*startStrategy)();
 
 #endif
 
