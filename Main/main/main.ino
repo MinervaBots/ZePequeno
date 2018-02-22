@@ -13,15 +13,12 @@ void setup() {
 }
 
 void loop() {
-  //Serial.println("loop");
-  verifyStartStrategy(); // strategies.h
   searchStrategy(); // strategies.h
   verifyToStopButton(); // startStop.h
   //verifyToStopBluetooth(); // startStop.h
 }
 
-void initialSet() {     
-  
+void initialSet() {
   Serial.begin(9600);
   //bluetooth.begin(9600);
   button1.begin();

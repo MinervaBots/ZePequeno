@@ -21,7 +21,9 @@ bool readEdge(bool right) {
 }
     
 bool anyEdge() {
-  return (readEdge(0) || readEdge(1));
+  bool any = (readEdge(0) || readEdge(1));
+  digitalWrite(LED_BUILTIN, any);
+  return any;
 }
 
 bool readIR(bool right) {

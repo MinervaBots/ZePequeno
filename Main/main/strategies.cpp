@@ -11,9 +11,9 @@ void (*startStrategy)();
 
 void avoidEdge() {
   if (anyEdge()) {
-    backwards();
+    move(lastToSee, maxPWM);
     delay(delayBackEdge);
-    move(0, lastToSee);
+    move(lastToSee, maxPWM);
     delay(delaySpinEdge);
   }
 }
@@ -21,9 +21,9 @@ void avoidEdge() {
 void radarSearch() {
   if (anyIR()) {
     int side = readIRs();
-    move(1, side);
+    move(side, maxPWM);
     lastToSee = side;
-    //Serial.println(side);  
+    //Serial.println(side);
   }
   else {
     if (lastToSee == -1) {
@@ -39,62 +39,64 @@ void radarSearch() {
 void starSearch() {
   if (anyIR()) {
     int side = readIRs();
-    move(1, side);
+    move(side, maxPWM);
     lastToSee = side;
   }
   else {
-    forward();
+    move(0, maxStarPWM);
   }
   avoidEdge();
 }
 
 void archStartRight() {
-  move(-1, 0.5);
+  move(0.5, maxPWM, true);
   delay(delayArchStart);
 }
-  
+
 void archStartLeft() {
-  move(-1, -0.5);
+  move(-0.5, maxPWM, true);
   delay(delayArchStart);
 }
 
 void backwardStart() {
-  backwards();
+  move(0, maxPWM, true);
   delay(delayBackStart);
 }
 
 void spinStartLeft() {
   lastToSee = -1;
 }
-  
+
 void spinStartRight() {
   lastToSee = 1;
 }
 
 void attackStartRight() {
-  forwardSpeed = 1;
-  forward();
+  //forward();
+  move(0, maxPWM);
   delay(attackF1delay);
   spin(0);
   delay(attackS1delay);
-  forward();
+  //forward();
+  move(0, maxPWM);
   delay(attackF2delay);
   spin(0);
   delay(attackS2delay);
 }
-  
+
 void attackStartLeft() {
-  forwardSpeed = 1;
-  forward();
+  //forward();
+  move(0, maxPWM);
   delay(attackF1delay);
   spin(1);
   delay(attackS1delay);
-  forward();
+  //forward();
+  move(0, maxPWM);
   delay(attackF2delay);
   spin(1);
   delay(attackS2delay);
 }
-  
+
 void nothing() {}
 
 void verifyStartStrategy() {
