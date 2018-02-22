@@ -97,40 +97,43 @@ void attackStartLeft() {
   delay(attackS2delay);
 }
 
-void nothing() {}
+void nothing() {
+  Serial.println("nothing");
+}
 
 void verifyStartStrategy() {
   if ((not strategyButton(1)) and (not strategyButton(2)) and (not strategyButton(3))) { //000x
     startStrategy = &nothing;
-    //Serial.println("000");
+    Serial.println("000");
   }
   else if ((not strategyButton(1)) and (not strategyButton(2)) and (strategyButton(3))) { //001x
     startStrategy = &backwardStart;
-    //Serial.println("001");
+    Serial.println("001");
   }
   else if ((not strategyButton(1)) and (strategyButton(2)) and (not strategyButton(3))) { //010x
     startStrategy = &archStartRight;
-    //Serial.println("010");
+    Serial.println("010");
   }
   else if ((not strategyButton(1)) and (strategyButton(2)) and (strategyButton(3))) { //011x
     startStrategy = &archStartLeft;
-    //Serial.println("011");
+    Serial.println("011");
   }
   else if ((strategyButton(1)) and (not strategyButton(2)) and (not strategyButton(3))) { //100x
     startStrategy = &attackStartRight;
-    //Serial.println("100");
+    Serial.println("100");
   }
   else if ((strategyButton(1)) and (not strategyButton(2)) and (strategyButton(3))) { //101x
     startStrategy = &attackStartLeft;
-    //Serial.println("101");
+    Serial.println("101");
   }
   else if ((strategyButton(1)) and (strategyButton(2)) and (not strategyButton(3))) { //110x
     startStrategy = &spinStartLeft;
-    //Serial.println("110");
+    Serial.println("110");
   }
-  else if ((strategyButton(1)) and (strategyButton(2)) and (strategyButton(3))) { //111x
+  else //if ((strategyButton(1)) and (strategyButton(2)) and (strategyButton(3))) //111x
+  {
     startStrategy = &spinStartRight;
-    //Serial.println("111");
+    Serial.println("111");
   }
 }
 

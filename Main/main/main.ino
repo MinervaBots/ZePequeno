@@ -4,22 +4,28 @@
 #include "motors.h"
 
 void setup() {
+  Serial.begin(9600);
+  while (!Serial) {
+    ;
+  }
+
   initialSet(); // constants.h
+  verifyStartStrategy(); // strategies.h
   verifySearchStrategy(); // strategies.h
   waitButton(); // startStop.h
+  digitalWrite(led, LOW);
   //waitBluetooth(); // startStop.h
-  delay(1000);
+  delay(5000);
+  digitalWrite(led, HIGH);
   startStrategy(); // strategies.h
 }
 
 void loop() {
-  searchStrategy(); // strategies.h
   verifyToStopButton(); // startStop.h
-  //verifyToStopBluetooth(); // startStop.h
+  searchStrategy(); // strategies.h
 }
 
 void initialSet() {
-  Serial.begin(9600);
   //bluetooth.begin(9600);
   button1.begin();
   

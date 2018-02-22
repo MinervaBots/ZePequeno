@@ -17,6 +17,8 @@ bool strategyButton(int selectionButton) {
 }
 
 bool readEdge(bool right) {
+  //Serial.print(analogRead(rightEdge));
+  //Serial.print(analogRead(leftEdge));
   return (right ? (analogRead(rightEdge)  < edgeLimit) : analogRead(leftEdge)  < edgeLimit);
 }
     
