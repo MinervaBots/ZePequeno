@@ -1,14 +1,12 @@
-#include "constants.h"
+ #include "constants.h"
 #include "startStop.h"
 #include "strategies.h"
 #include "motors.h"
 
 void setup() {
   Serial.begin(9600);
-  while (!Serial) {
-    ;
-  }
-
+  //while(!Serial);
+  
   initialSet(); // constants.h
   verifyStartStrategy(); // strategies.h
   verifySearchStrategy(); // strategies.h
@@ -22,13 +20,15 @@ void setup() {
 
 void loop() {
   verifyToStopButton(); // startStop.h
+  //move(0,30); 
   searchStrategy(); // strategies.h
 }
 
 void initialSet() {
   //bluetooth.begin(9600);
   button1.begin();
-  
+
+  pinMode(LED_BUILTIN, OUTPUT);
   pinMode(led, OUTPUT);
   pinMode(leftWheelPWM, OUTPUT);
   pinMode(rightWheelPWM, OUTPUT);

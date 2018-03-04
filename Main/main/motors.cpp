@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "motors.h"
 #include "constants.h"
+#include "sensors.h"
  
 void move(float angular, int maxPwm, bool reverse)
 {
@@ -13,14 +14,18 @@ void move(float angular, int maxPwm, bool reverse)
   float leftSpeed = (linear + angular);
   float rightSpeed  = (linear - angular);
 
-  int leftPWM = map(leftSpeed, -1, 1, -maxPwm, maxPwm);//s + 1.55*s * leftSpeed;
-  int rightPWM = map(rightSpeed, -1, 1, -maxPwm, maxPwm);//s + 1.55*s * rightSpeed;
+  int leftPWM = map(leftSpeed, -1, 1, -maxPwm, maxPwm);
+  int rightPWM = map(rightSpeed, -1, 1, -maxPwm, maxPwm);
 
   rightPWM = abs(constrain(rightPWM, -maxPwm, maxPwm));
   leftPWM = abs(constrain(leftPWM, -maxPwm, maxPwm));
-
-  bool rightForward = rightPWM > 0;
-  bool leftForward = leftPWM > 0;
+  /*
+  Serial.print(leftPWM);
+  Serial.print("\t");
+  Serial.println(rightPWM);
+  */
+  bool rightForward = leftSpeed > 0;
+  bool leftForward = rightSpeed > 0;
     
   digitalWrite(rightWheelP1, not rightForward);
   digitalWrite(rightWheelP2, rightForward);
@@ -55,6 +60,19 @@ void spin(bool right) {
   forwardSpeed = 0;
 }
 */
+void moveLooking(unsigned int delayToSpin, int movePWM, int lastToSee, bool reverse) {
+  unsigned long tempo = millis();
+  while(millis() - tempo <= delayToSpin)
+  {
+    int side;
+    if(anyIR(&side))
+    {
+      move(side * 0.5, maxPWM);
+      return;
+    }
+    move(lastToSee, movePWM, reverse);
+  }
+}
 
 void spin(bool right) {
   digitalWrite(rightWheelP1, not right);

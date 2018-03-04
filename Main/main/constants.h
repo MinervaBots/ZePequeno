@@ -1,21 +1,37 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
-#define maxPWM 100 // test
-#define maxStarPWM maxPWM / 2 // test
+//#define convertPWM 0.31 // test
+#define maxPWM 255 
+#define maxStarPWM 75//maxPWM * convertPWM 
+#define backPWM 150
 
 
-#define delayBackEdge (100 / maxPWM) * 300 // test
-#define delaySpinEdge (100 / maxPWM) * 200 // test
+#define delayBackEdge 200//((int)((100.0 / maxPWM) * 300.0)) 
+#define delaySpinEdge 110//((int)((100.0 / maxPWM) * 200.0)) 
 
 #define accelerationRate 0.8 // test
-#define edgeLimit 600 // test
-#define delayBackStart 50 // test
-#define delayArchStart 50 // test
-#define attackF1delay 50 // test
-#define attackF2delay 50 // test
-#define attackS1delay 50 // test
-#define attackS2delay 50 // test
+#define edgeLimit 600 
+#define delayBackStart 140
+
+#define arcPWM 80
+#define delayArchStartRight 120
+#define delayBackLookingRight 190
+#define archAngleRight 0.45
+
+#define delayArchStartLeft 120
+#define delayBackLookingLeft 190
+#define archAngleLeft 0.45
+
+#define attackF1delayRight 190 
+#define attackF2delayRight 180 
+#define attackS1delayRight 110 
+#define attackS2delayRight 150 
+
+#define attackF1delayLeft 190 
+#define attackF2delayLeft 180 
+#define attackS1delayLeft 110 
+#define attackS2delayLeft 150
 
 #define led 0
 #define leftWheelPWM 21

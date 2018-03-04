@@ -3,10 +3,10 @@
 
 
 bool readIR(bool);
-int readIRs();
-bool anyIR();
+//int readIRs();
+bool anyIR(int* side);
 bool readEdge(bool);
-bool anyEdge();
+bool anyEdge(int*);
 bool strategyButton(int);
 
 
