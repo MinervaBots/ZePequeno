@@ -2,15 +2,15 @@
 #define CONSTANTS_H
 
 //#define convertPWM 0.31 // test
-#define maxPWM 255 
-#define maxStarPWM 75//maxPWM * convertPWM 
+#define maxPWM 255
+#define maxStarPWM 150//maxPWM * convertPWM 
 #define backPWM 150
 
 
 #define delayBackEdge 200//((int)((100.0 / maxPWM) * 300.0)) 
-#define delaySpinEdge 110//((int)((100.0 / maxPWM) * 200.0)) 
+#define delaySpinEdge 200//((int)((100.0 / maxPWM) * 200.0)) 
 
-#define accelerationRate 0.8 // test
+#define accelerationRate 0.0006 // test
 #define edgeLimit 600 
 #define delayBackStart 140
 

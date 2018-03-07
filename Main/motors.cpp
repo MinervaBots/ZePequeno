@@ -2,9 +2,14 @@
 #include "motors.h"
 #include "constants.h"
 #include "sensors.h"
+
+float forwardSpeed = 0;
  
 void move(float angular, int maxPwm, bool reverse)
 {
+  if (angular != 0) {
+    forwardSpeed = 0;
+  }
   float linear = (1 - abs(angular));
   if(reverse)
   {
@@ -40,11 +45,13 @@ void stop()
   analogWrite(rightWheelPWM, 0);
   analogWrite(leftWheelPWM, 0);
 }
-/*
+
 void forward() {
-  move(forwardSpeed,0);
-  forwardSpeed = max(1, forwardSpeed + accelerationRate);
+  move(0,forwardSpeed*maxPWM);
+  forwardSpeed = min(1, forwardSpeed + accelerationRate);
+  //Serial.println(forwardSpeed);
 }
+/*
 void backwards() {
   move(-1,0);
   forwardSpeed = 0;
@@ -67,8 +74,8 @@ void moveLooking(unsigned int delayToSpin, int movePWM, int lastToSee, bool reve
     int side;
     if(anyIR(&side))
     {
-      move(side * 0.5, maxPWM);
-      return;
+      //move(side * 0.5, maxPWM);
+      break;
     }
     move(lastToSee, movePWM, reverse);
   }

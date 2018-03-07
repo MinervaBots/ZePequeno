@@ -43,6 +43,6 @@ bool anyIR(int *side)
 {
   bool right = readIR(0);
   bool left = readIR(1);
-  *side = left - right;
+  *side = right - left;
   return (left || right);
 }

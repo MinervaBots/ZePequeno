@@ -25,7 +25,7 @@ void avoidEdge() {
     {
       lastEdgeSide = boardSide;
       delay(delayBackEdge);
-      moveLooking(delaySpinEdge, maxPWM, -lastEdgeSide);
+      moveLooking(delaySpinEdge, maxPWM*0.4, -lastEdgeSide);
     }
   }
 }
@@ -33,12 +33,17 @@ void avoidEdge() {
 void radarSearch() {
   int side;
   if (anyIR(&side)) {
-    move(side*0.2, maxPWM);
+    if (side == 0) {
+      forward();
+    }
+    else {
+      move(side*0.8, maxPWM);
+    }
     lastToSee = side;
     //Serial.println(side);
   }
   else {
-    move(lastToSee, maxPWM * 0.75);
+    move(lastToSee, maxPWM * 0.4);
     /*
     if (lastToSee == -1) {
       spin(false);
@@ -53,11 +58,15 @@ void radarSearch() {
 }
 
 void starSearch() {
-  int side;
+ int side;
   if (anyIR(&side)) {
-    move(side, maxPWM);
-    lastToSee = side;
-    
+    //side = 0;
+    if (side == 0) {
+      forward();
+    }
+    else {
+      move(-side, 0);
+    }
   }
   else {
     move(0, maxStarPWM);
