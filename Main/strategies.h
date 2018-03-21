@@ -1,6 +1,7 @@
-#ifndef STRATEGIES_H
-#define STRATEGIES_H
+#ifndef STRATEGIES_H        // Se STRATEGIES_H não esteja declarado
+#define STRATEGIES_H        // Define STRATEGIES_H
 
+//=====Declaração das funções
 void starSearch();          // xxx1
 void radarSearch();         // xxx0
 
@@ -23,4 +24,3 @@ extern void (*searchStrategy)();
 extern void (*startStrategy)();
 
 #endif
-
