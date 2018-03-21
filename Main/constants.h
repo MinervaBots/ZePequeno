@@ -1,6 +1,8 @@
 #ifndef CONSTANTS_H
 #define CONSTANTS_H
 
+// Definição de todas as constantes usadas na programação
+
 //#define convertPWM 0.31 // test
 #define maxPWM 255
 #define maxStarPWM 150//maxPWM * convertPWM 
@@ -53,4 +55,3 @@
 
 
 #endif
-
