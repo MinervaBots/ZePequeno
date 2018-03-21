@@ -1,8 +1,9 @@
-#ifndef MOTORS_H
-#define MOTORS_H
+#ifndef MOTORS_H         // Caso MOTORS_H não esteja definido
+#define MOTORS_H         // Define MOTORS_H
 
 //float forwardSpeed = 0;
 
+//=====Declaração das funções
 void move(float);
 void move(float angular, int maxPwm, bool reverse = false);
 void stop();
@@ -11,4 +12,3 @@ void spin(bool);
 void forward();
 
 #endif
-
