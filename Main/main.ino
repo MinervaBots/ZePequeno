@@ -11,14 +11,6 @@ void setup() {
   Serial.begin(9600);
   //while(!Serial);
 
-  //Interrupção Borda
-  attachInterrupt(InterruptEdgePinA, EdgeInterrupt, CHANGE);
-  attachInterrupt(InterruptEdgePinB, EdgeInterrupt, CHANGE);
-  
-  //Interrupção IR
-  attachInterrupt(InterruptLeftIRPin, IRInterrupt, CHANGE); //ver precisa mudar o CHANGE
-  attachInterrupt(InterruptRightIRPin, IRInterrupt, CHANGE);
-
   //Chamada das funções iniciais
   initialSet();                 // constants.h
   verifyStartStrategy();        // strategies.h
@@ -62,4 +54,12 @@ void initialSet() {
   pinMode(SWITCH_FOUR, INPUT);
 
   digitalWrite(led, HIGH);
+
+  //Interrupção Borda
+  attachInterrupt(InterruptEdgePinA, EdgeInterrupt, CHANGE); // ver se precisa mudar o CHANGE
+  attachInterrupt(InterruptEdgePinB, EdgeInterrupt, CHANGE);
+
+  //Interrupção IR
+  attachInterrupt(InterruptLeftIRPin, IRInterrupt, HIGH);  // checar se é HIGH
+  attachInterrupt(InterruptRightIRPin, IRInterrupt, HIGH);
 }
