@@ -92,4 +92,5 @@ void spin(bool right) {
   digitalWrite(leftWheelP2, right);
   analogWrite(rightWheelPWM, maxPWM);
   analogWrite(leftWheelPWM, maxPWM);
+  
 }
