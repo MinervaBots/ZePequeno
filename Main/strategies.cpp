@@ -8,6 +8,9 @@
 int lastToSee = -1;
 int lastEdgeSide = -1;
 
+bool edgeBool = true;
+bool IRBool = true;
+
 void (*searchStrategy)();
 void (*startStrategy)();
 
@@ -20,14 +23,16 @@ void avoidEdge()
     if(boardSide == 0)                                                    // Caso esteja vendo borda nos dois sensores..
     {
       //digitalWrite(LED_BUILTIN, HIGH);
-      delay(delayBackEdge * 1.5);                                         // vai para trás durante um tempo (maior)
-      moveLooking(delaySpinEdge * 1.5, maxPWM, -lastEdgeSide);            // depois, vira para o centro da arena, sempre checando se está vendo
+      myDelay(delayBackEdge * 1.5);                                       // vai para trás durante um tempo (maior)
+      move(lastToSee, movePWM*0.4); // Deveria ter reverse, ver isso      // depois, vira para o centro da arena, sempre checando se está vendo
+      myDelay(delaySpinEdge);                                             
     }
     else                                                                  // Caso esteja vendo borda em somente um sensor..
     {
       lastEdgeSide = boardSide;
-      delay(delayBackEdge);                                               // vai para trás durante um tempo
-      moveLooking(delaySpinEdge, maxPWM*0.4, -lastEdgeSide);              // depois, vira para o centro da arena, sempre checando se está vendo
+      myDelay(delayBackEdge);                                             // vai para trás durante um tempo
+      move(lastToSee, movePWM*0.4);                                       // depois, vira para o centro da arena, sempre checando se está vendo
+      myDelay(delaySpinEdge);
     }
   }
 }
@@ -37,7 +42,7 @@ void radarSearch()
 {
   int side;
   if (anyIR(&side)) {                                                     // Checa se está vendo o inimigo, se estiver
-    if (side == 0) {                                                      // Caso esteja vendo nos dois sensores..
+    if (side != 0) {                                                      // Caso esteja vendo nos dois sensores..
       forward();                                                          // vai para frente
     }
     else {                                                                // Caso esteja vendo com um sensor
@@ -74,8 +79,9 @@ void starSearch()
 void archStartRight() 
 {
   move(-archAngleRight, arcPWM, true);
-  delay(delayArchStartRight);
-  moveLooking(delayBackLookingRight, maxPWM, 0, true);
+  myDelay(delayArchStartRight);
+  move(0, maxPWM, true);                   //checar se a troca do movelooking pelo move+myDelay está ok
+  myDelay(delayBackLookingRight);
 }
 
 //=====Início da função archStartLeft
@@ -83,7 +89,8 @@ void archStartLeft()
 {
   move(archAngleLeft, arcPWM, true);
   delay(delayArchStartLeft);
-  moveLooking(delayBackLookingLeft, maxPWM, 0, true);
+  move(0, maxPWM, true);                    //checar se a troca do movelooking pelo move+myDelay está ok
+  myDelay(delayBackLookingLeft);
 }
 
 //=====Início da função backwardStart
@@ -107,13 +114,17 @@ void spinStartRight() {
 //=====Início da função attackStartRight
 void attackStartRight() {
   
-  moveLooking(attackF1delayRight, maxPWM, 0);
+  move(0, maxPWM);
+  myDelay(attackF1delayRight);
   
-  moveLooking(attackS1delayRight, maxPWM, lastToSee);
+  move(lasToSee, maxPWM);
+  myDelay(attackS1delayRight);
   
-  moveLooking(attackF1delayRight, maxPWM);
+  move(0, maxPWM);
+  myDelay(attackF1delayRight);
   
-  moveLooking(attackS2delayRight, maxPWM, lastToSee);
+  move(lastToSee, maxPWM);
+  myDelay(attackS2delayRight);
 }
 
 //=====Início da função attackStartLeft
