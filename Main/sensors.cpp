@@ -3,6 +3,8 @@
 #include "sensors.h"
 #include "constants.h"
 
+volatile unsigned long delayInterrupt;
+
 //=====Início da função strategyButton
 bool strategyButton(int selectionButton) {
   if (selectionButton == 1)
