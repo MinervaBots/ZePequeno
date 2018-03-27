@@ -56,3 +56,25 @@ bool anyIR(int *side)
   return (left || right);             // Retorna left ou right, tem o objetivo de retornar um valor verdadeiro(1), não importando qual seja
                                       // Dessa forma, caso side seja 0 e o valor returnado seja verdadeiro, está vendo algo, mesma coisa ao contrário
 }
+
+//=====Início da função edgeInterrupt
+void edgeInterrupt()
+{
+  move(0, backPWM, 1);
+  delayInterrupt = false;
+}
+
+// Usar interrupção para fazer estrategias de início
+
+//=====Início da função IRInterrupt
+void IRInterrupt()
+{
+  delayInterrupt = false;
+}
+
+void myDelay(unsigned long delayTime)
+{
+  unsigned long start = millis();
+  while((millis() - start < delayTime) and delayInterrupt);
+  delayInterrupt = true;
+}
