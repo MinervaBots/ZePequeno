@@ -1,4 +1,4 @@
-/=====Inclusão das bibliotecas
+//=====Inclusão das bibliotecas
 #include <Arduino.h>
 #include "motors.h"
 #include "sensors.h"
@@ -14,7 +14,7 @@ bool IRBool = true;
 void (*searchStrategy)();
 void (*startStrategy)();
 
-/=====Início da função avoidEdge
+//=====Início da função avoidEdge
 void avoidEdge() 
 {
   int boardSide;
