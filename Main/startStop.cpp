@@ -1,41 +1,25 @@
+//=====Inclusão das bibliotecas
 #include <Arduino.h>
 #include "startStop.h"
 #include "constants.h"
 #include "motors.h"
 
-Button button1(button);
-SoftwareSerial bluetooth(9, 10);
+Button button1(button, PULLUP);
 
-void waitBluetooth() {
-  bool ready = false;
-  while (not ready) {
-    if (bluetooth.available() > 0) {
-      ready = (bluetooth.read() == 1);
-    }
-  }
-}
-
-void verifyToStopBluetooth() {
-  if (bluetooth.available() > 0) {
-    if (bluetooth.read() == 0) {
-      while(true) {}
-    }
-  }
-}
-
+//=====Início da função waitButton
 void waitButton() {
   while (1) {
-    if (button1.pressed()) {
+    if (button1.isPressed()) {
       break;
     }
   }
   }
 
+//=====Início da função verifyToStopButton
 void verifyToStopButton() {
-  if (button1.pressed()) {
+  if (button1.isPressed()) {
     while(1){
       stop();
       }
   }
 }
-  
