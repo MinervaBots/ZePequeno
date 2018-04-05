@@ -2,6 +2,9 @@
 #include <Arduino.h>
 #include "sensors.h"
 #include "constants.h"
+#include "motors.h"
+
+volatile unsigned long delayInterrupt;
 
 //=====Início da função strategyButton
 bool strategyButton(int selectionButton) {
@@ -42,7 +45,7 @@ bool anyEdge(int *boardSide)
 //=====Início da função readIR
 bool readIR(bool right) 
 {
-  return right ? (digitalReadFast(rightIR)) : (digitalReadFast(leftIR));  
+  return right ? (digitalRead(rightIR)) : (digitalRead(leftIR));  
   // Caso ele receba right como verdadeiro(1), vai fazer analogRead do sensor direito, retornando verdadeiro(1) caso esteja vendo inimigo
 }
 
