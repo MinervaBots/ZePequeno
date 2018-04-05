@@ -3,7 +3,8 @@
 #include "startStop.h"
 #include "strategies.h"
 #include "motors.h"
-
+#include "Button.h"
+#include "sensors.h"
 
 //=====Início do Setup
 void setup() {
@@ -31,9 +32,6 @@ void loop() {
 
 //=====Início da função initialSet
 void initialSet() {
-  
-  // Declaração do botão
-  button1.begin();
 
   // Declaração de todos os pins
   pinMode(LED_BUILTIN, OUTPUT);
@@ -56,10 +54,10 @@ void initialSet() {
   digitalWrite(led, HIGH);
 
   //Interrupção Borda
-  attachInterrupt(InterruptEdgePinA, EdgeInterrupt, CHANGE); // ver se precisa mudar o CHANGE
-  attachInterrupt(InterruptEdgePinB, EdgeInterrupt, CHANGE);
+  attachInterrupt(leftEdge, edgeInterrupt, CHANGE); // ver se precisa mudar o CHANGE
+  attachInterrupt(rightEdge, edgeInterrupt, CHANGE);
 
   //Interrupção IR
-  attachInterrupt(InterruptLeftIRPin, IRInterrupt, HIGH);  // checar se é HIGH
-  attachInterrupt(InterruptRightIRPin, IRInterrupt, HIGH);
+  attachInterrupt(leftIR, IRInterrupt, HIGH);  // checar se é HIGH
+  attachInterrupt(rightIR, IRInterrupt, HIGH);
 }
