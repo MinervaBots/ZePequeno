@@ -8,8 +8,8 @@ bool anyIR(int* side);
 bool readEdge(bool);
 bool anyEdge(int*);
 bool strategyButton(int);
+void IRInterrupt();
 void myDelay(unsigned long);
 void edgeInterrupt();
-void IRInterrupt();
                              
-#endif                      
+#endif             
