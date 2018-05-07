@@ -3,7 +3,7 @@
 #include "startStop.h"
 #include "strategies.h"
 #include "motors.h"
-
+#include <IRremote.h>
 
 //=====Início do Setup
 void setup() {
@@ -15,7 +15,7 @@ void setup() {
   initialSet();                 // constants.h
   verifyStartStrategy();        // strategies.h
   verifySearchStrategy();       // strategies.h
-  waitButton();                 // startStop.h
+  waitButtonOrIR();                 // startStop.h
   digitalWrite(led, LOW);
   delay(5000);
   digitalWrite(led, HIGH);
@@ -24,7 +24,7 @@ void setup() {
 
 //=====Início da função loop
 void loop() {
-  verifyToStopButton();         // startStop.h 
+  verifyToStopButtonOrIR();         // startStop.h 
   searchStrategy();             // strategies.h
 }
 
