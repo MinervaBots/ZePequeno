@@ -11,7 +11,6 @@ void verifyToStopButtonOrIR();
 
 //=====Declaração dos objetos
 extern Button button1;
-extern SoftwareSerial bluetooth; // verify pins (TX,RX)
 extern IRRecv irrecv;
 
 #endif
