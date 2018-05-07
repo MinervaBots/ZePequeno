@@ -3,15 +3,15 @@
 
 #include <SoftwareSerial.h>
 #include <Button.h>
+#include <IRremote.h>
 
 //=====Declaração das funções
-void waitBluetooth();
-void verifyToStopBluetooth();
-void waitButton();
-void verifyToStopButton();
+void waitButtonOrIR();
+void verifyToStopButtonOrIR();
 
 //=====Declaração dos objetos
 extern Button button1;
 extern SoftwareSerial bluetooth; // verify pins (TX,RX)
+extern IRRecv irrecv;
 
 #endif
