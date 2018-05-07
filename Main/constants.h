@@ -8,6 +8,7 @@
 #define maxStarPWM 150//maxPWM * convertPWM 
 #define backPWM 150
 
+#define RECV_PIN 11
 
 #define delayBackEdge 200//((int)((100.0 / maxPWM) * 300.0)) 
 #define delaySpinEdge 200//((int)((100.0 / maxPWM) * 200.0)) 
