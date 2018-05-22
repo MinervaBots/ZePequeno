@@ -1,32 +1,39 @@
-#include "constants.h"
+#include "const.h"
+#include "motors.h"
+#include "sensors.h"
 #include "startStop.h"
 #include "strategies.h"
-#include "motors.h"
+#include <IRremote.h>
 
-void setup() {
+bool IRBool = false;   // variável para ligar/desligar o robô
+
+void setup()
+{
   Serial.begin(9600);
-  //while(!Serial);
-  
-  initialSet(); // constants.h
-  verifyStartStrategy(); // strategies.h
-  verifySearchStrategy(); // strategies.h
-  waitIR(); // startStop.h
+  initialSet();
+}
+
+void loop() 
+{
+  waitIR(IRBool);
   digitalWrite(led, LOW);
-  //waitBluetooth(); // startStop.h
   delay(5000);
   digitalWrite(led, HIGH);
-  startStrategy(); // strategies.h
+  if(IRBool == true)                      // Caso o IR tenha sido acionado
+  {
+    while(1)                              // Entra no while
+    {
+      verifyToStopIR(IRBool);
+      radarSearch();
+      if(IRBool == false)  break;         //Caso o IR tenha sido acionado de novo,saí do while
+    }
+  }
 }
 
-void loop() {
-  verifyToStopIR(); // startStop.h
-  //move(0,30); 
-  searchStrategy(); // strategies.h
-}
-
+//=== Início da função que seta tudo
 void initialSet() {
-  //bluetooth.begin(9600);
-  button1.begin();
+  //button1.begin();
+  IRrecv irrecv(RECV_PIN);
 
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(led, OUTPUT);
@@ -38,12 +45,12 @@ void initialSet() {
   pinMode(rightWheelP2, OUTPUT);
   pinMode(leftIR, INPUT);
   pinMode(rightIR, INPUT);
-  pinMode(leftEdge, INPUT);
-  pinMode(rightEdge, INPUT);
-  pinMode(SWITCH_ONE, INPUT);
-  pinMode(SWITCH_TWO, INPUT);
-  pinMode(SWITCH_THREE, INPUT);
-  pinMode(SWITCH_FOUR, INPUT);
+  //pinMode(leftEdge, INPUT);            funções comentadas pois n serão usadas por enquanto
+  //pinMode(rightEdge, INPUT);
+  //pinMode(SWITCH_ONE, INPUT);
+  //pinMode(SWITCH_TWO, INPUT);
+  //pinMode(SWITCH_THREE, INPUT);
+  //pinMode(SWITCH_FOUR, INPUT);
   irrecv.enableIRIn();  //começa a receber
   
   digitalWrite(led, HIGH);
