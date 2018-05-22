@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include "motors.h"
-#include <constants.h>
+#include "const.h"
 #include "sensors.h"
 
 float forwardSpeed = 0;
@@ -51,28 +51,13 @@ void forward() {
   forwardSpeed = min(1, forwardSpeed + accelerationRate);
   //Serial.println(forwardSpeed);
 }
-/*
-void backwards() {
-  move(-1,0);
-  forwardSpeed = 0;
-}
-/*
-void spin(bool right) {
-  if (right) {
-    move(0,1);
-  }
-  else {
-    move(0,-1);
-  }
-  forwardSpeed = 0;
-}
-*/
+
 void moveLooking(unsigned int delayToSpin, int movePWM, int lastToSee, bool reverse) {
   unsigned long tempo = millis();
+  int side;
   while(millis() - tempo <= delayToSpin)
-  {
-    int side;
-    if(anyIR(&side))
+  {  
+    if(anyIR(&side)) 
     {
       //move(side * 0.5, maxPWM);
       break;
