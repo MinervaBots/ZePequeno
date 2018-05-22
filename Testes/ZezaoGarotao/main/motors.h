@@ -11,4 +11,3 @@ void spin(bool);
 void forward();
 
 #endif
-
