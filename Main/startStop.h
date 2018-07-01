@@ -1,16 +1,15 @@
-#ifndef STARTSTOP_H              // Caso STARTSTOP_H não esteja declarado
-#define STARTSTOP_H              // Define STARSTOP_H
+#ifndef STARTSTOP_H
+#define STARTSTOP_H
 
-#include <SoftwareSerial.h>
 #include <Button.h>
-#include <IRremote.h>
 
-//=====Declaração das funções
-void waitButtonOrIR();
-void verifyToStopButtonOrIR();
+void waitIR();
+void verifyToStopIR();
+void waitButton();
+bool verifyToStopButton();
+void verifyOnButton();
+void verifyButton();
 
-//=====Declaração dos objetos
 extern Button button1;
-extern IRRecv irrecv;
 
 #endif
