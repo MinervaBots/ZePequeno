@@ -11,6 +11,7 @@ void nothing();
 void rightFlank();
 void leftFlank();
 void leftDibre();
+void ole();
 
 extern int lastToSee;
 extern void (*searchStrategy)();
