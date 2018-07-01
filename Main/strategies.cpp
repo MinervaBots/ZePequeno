@@ -1,150 +1,174 @@
-//=====Inclusão das bibliotecas
 #include <Arduino.h>
 #include "motors.h"
 #include "sensors.h"
 #include "strategies.h"
-#include "constants.h"
+#include "const.h"
 
 int lastToSee = -1;
 int lastEdgeSide = -1;
 
-bool edgeBool = true;
-bool IRBool = true;
-
 void (*searchStrategy)();
 void (*startStrategy)();
 
-//=====Início da função avoidEdge
-void avoidEdge() 
+void avoidEdge()
 {
   int boardSide;
-  if (anyEdge(&boardSide)) {                                              // Checa se vê alguma borda
-    move(0, backPWM, 1);                                                  // Vai para trás
-    if(boardSide == 0)                                                    // Caso esteja vendo borda nos dois sensores..
+  if (anyEdge(&boardSide))
+  {
+    move(0, backPWM, true);
+    if (boardSide == 0)
     {
-      //digitalWrite(LED_BUILTIN, HIGH);
-      myDelay(delayBackEdge * 1.5);                                       // vai para trás durante um tempo (maior)
-      move(lastToSee, movePWM*0.4); // Deveria ter reverse, ver isso      // depois, vira para o centro da arena, sempre checando se está vendo
-      myDelay(delaySpinEdge);                                             
+      unsigned long startTime = millis();
+      while (millis() - startTime < delayBackEdge * 1.5) // delay(delayBackEdge*1.5);
+      {
+      }
+      moveLooking(delaySpinEdge * 1.2, maxPWM , -lastEdgeSide);
     }
-    else                                                                  // Caso esteja vendo borda em somente um sensor..
+    else
     {
+
+      unsigned long startTime = millis();
+      while (millis() - startTime < delayBackEdge) //delay(delayBackEdge);
+      {
+      }
+      moveLooking(delaySpinEdge, maxPWM * 1.3, -boardSide);
       lastEdgeSide = boardSide;
-      myDelay(delayBackEdge);                                             // vai para trás durante um tempo
-      move(lastToSee, movePWM*0.4);                                       // depois, vira para o centro da arena, sempre checando se está vendo
-      myDelay(delaySpinEdge);
     }
   }
 }
 
-//=====Início da função radarSearch
 void radarSearch()
 {
   int side;
-  if (anyIR(&side)) {                                                     // Checa se está vendo o inimigo, se estiver
-    if (side != 0) {                                                      // Caso esteja vendo nos dois sensores..
-      forward();                                                          // vai para frente
+  /*
+  float dir = readIR();
+  side = dir/abs(dir);
+  if(abs(dir) > 0.8)
+  {
+    move(side, maxPWM);
+  }
+  else
+  {
+    move(dir, maxPWM);
+  }
+  lastToSee = side;
+  */
+  
+  if (anyIR(&side))
+  {
+    if (side == 0)
+    {
+      forward();
+      //Serial.println("Motor para frente");
     }
-    else {                                                                // Caso esteja vendo com um sensor
-      move(side*0.8, maxPWM);                                             // vira para o lado do sensor que está vendo
+    else
+    {
+      move(side , maxPWM * 0.3);
+      //Serial.println("Motor pro lado 1");
     }
     lastToSee = side;
-    //Serial.println(side);   // Debug
   }
-  else {                                                                  // Se não está vendo nenhum inimigo
-    move(lastToSee, maxPWM * 0.4);                                        // fica girando para o último lado que viu alguém
+  else
+  {
+    move(lastToSee, maxPWM * 0.4);
+    //Serial.println("Motor pro lado 2");
   }
-  avoidEdge();                                                            // Função para desviar da borda
+  
+  avoidEdge();
 }
 
-//=====Início da função starSearch
-void starSearch() 
+void starSearch()
 {
- int side;
-  if (anyIR(&side)) {                                                     // Checa se está vendo algum inimigo, se estiver
-    if (side == 0) {                                                      // Se estiver vendo com os dois sensores..
-      forward();                                                          // vai para frente
+  //Serial.println("Inicio do loop");
+  avoidEdge();
+  int side;
+
+  float dir = readIR();
+  if(abs(dir) > 0.8)
+  {
+    move(dir/abs(dir), maxPWM);
+  }
+  else
+  {
+    move(dir, maxPWM);
+  }
+  /*
+  if (anyIR(&side))
+  {
+    if (side == 0)
+    {
+      //Serial.println("Viu");
+      forward();
     }
-    else {                                                                // Caso esteja vendo somente com um sensor
-      move(-side, 0);                                                     // fira para o lado do sensor que está vendo
+    else
+    {
+      //Serial.println("Viu de um lado 1");
+      move(side, maxPWM);
     }
   }
-  else {                                                                  // Caso nao esteja vendo ninguém
-    move(0, maxStarPWM);                                                  // vai para frente com a velocidade da estratégia
+  else
+  {
+    Serial.println("Ta indo pra frente");
+    move(0, maxStarPWM);
   }
-  avoidEdge();                                                            // Quando ver a borda, vira para o centro da arena
+  //Serial.println("Final do loop");
+  */
 }
 
-//=====Início da função archStartRight
-void archStartRight() 
+/*
+void estrela()
 {
-  move(-archAngleRight, arcPWM, true);
-  myDelay(delayArchStartRight);
-  move(0, maxPWM, true);                   //checar se a troca do movelooking pelo move+myDelay está ok
-  myDelay(delayBackLookingRight);
+  int side;
+  forward();
+  if(anyIR(&side))
+  {
+    
+  }
 }
+*/
 
-//=====Início da função archStartLeft
-void archStartLeft() 
-{
-  move(archAngleLeft, arcPWM, true);
-  delay(delayArchStartLeft);
-  move(0, maxPWM, true);                    //checar se a troca do movelooking pelo move+myDelay está ok
-  myDelay(delayBackLookingLeft);
-}
-
-//=====Início da função backwardStart
-void backwardStart() 
-{
-  move(0, maxPWM, true);
-  delay(delayBackStart);
-}
-
-//=====Início da função spinStartLeft
-void spinStartLeft() 
-{
-  lastToSee = 1;
-}
-
-//=====Início da função spinStartRight
-void spinStartRight() {
-  lastToSee = -1;
-}
-
-//=====Início da função attackStartRight
-void attackStartRight() {
-  
-  move(0, maxPWM);
-  myDelay(attackF1delayRight);
-  
-  move(lasToSee, maxPWM);
-  myDelay(attackS1delayRight);
-  
-  move(0, maxPWM);
-  myDelay(attackF1delayRight);
-  
-  move(lastToSee, maxPWM);
-  myDelay(attackS2delayRight);
-}
-
-//=====Início da função attackStartLeft
-void attackStartLeft() {
-  //forward();
-  move(0, maxPWM);
-  delay(attackF1delayLeft);
-  spin(0);
-  delay(attackS1delayLeft);
-  //forward();
-  move(0, maxPWM);
-  delay(attackF2delayLeft);
-  spin(0);
-  delay(attackS2delayLeft);
-}
-
-//=====Início da função nothing
 void nothing()
 {
-  //Serial.println("nothing");
+  //Serial.println("nada");
+}
+
+void rightFlank()
+{
+  move(rightFlankAngular, rightFlankPWM, false);
+  delay(rightFlankDelay);
+}
+
+void leftFlank()
+{
+  move(-leftFlankAngular, leftFlankPWM, false);
+  delay(leftFlankDelay);
+}
+
+void leftDibre()
+{
+  move(-leftDibreAngular, leftFlankPWM, true);
+  delay(leftDibreDelay);
+}
+
+void rightDibre()
+{
+  move(rightDibreAngular, leftFlankPWM, true);
+  delay(rightDibreDelay);
+}
+
+void x() {
+  int t = 1000;
+  int start = time();
+  forward();
+  while (time() - start < t) {
+    se só o da esquerda ve {
+      lastToSee = esquerda
+    se só o da direita ve {
+      lastToSee = direita
+    }
+    }
+  }
+  
 }
 
 //=====Início da função verifyStartStrategy
@@ -157,42 +181,49 @@ void verifyStartStrategy()
   }
   else if ((not strategyButton(1)) and (not strategyButton(2)) and (strategyButton(3)))  //001x
   {
-    startStrategy = &backwardStart;
+    startStrategy = &rightFlank;
     //Serial.println("001");
   }
   else if ((not strategyButton(1)) and (strategyButton(2)) and (not strategyButton(3)))  //010x 
   { 
-    startStrategy = &archStartRight;
+    startStrategy = &leftFlank;
     //Serial.println("010");
   }
   else if ((not strategyButton(1)) and (strategyButton(2)) and (strategyButton(3)))      //011x
   {
-    startStrategy = &archStartLeft;
+    startStrategy = &leftDibre;
     //Serial.println("011");
   }
   else if ((strategyButton(1)) and (not strategyButton(2)) and (not strategyButton(3)))  //100x
   {
-    startStrategy = &attackStartRight;
+    startStrategy = &rightDibre;
     //Serial.println("100");
   }
   else if ((strategyButton(1)) and (not strategyButton(2)) and (strategyButton(3)))      //101x
   { 
     startStrategy = &attackStartLeft;
     //Serial.println("101");
-  }
+  }/*
   else if ((strategyButton(1)) and (strategyButton(2)) and (not strategyButton(3)))      //110x
   { 
-    startStrategy = &spinStartLeft;
+    //startStrategy = &spinStartLeft;
     //Serial.println("110");
-  }
+  }/*
   else //if ((strategyButton(1)) and (strategyButton(2)) and (strategyButton(3)))        //111x
   {
-    startStrategy = &spinStartRight;
+    //startStrategy = &spinStartRight;
     //Serial.println("111");
-  }
+  }*/
 }
 
 //=====Início da função verifySearchStrategy
 void verifySearchStrategy() {
-  strategyButton(4) ? searchStrategy = &radarSearch : searchStrategy = &starSearch;
+  if (strategyButton(4))
+  {
+    searchStrategy = &radarSearch;
+  }
+  else if(!strategyButton(4))
+  {
+    searchStrategy = &starSearch;
+  }
 }
