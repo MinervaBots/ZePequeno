@@ -156,19 +156,17 @@ void rightDibre()
   delay(rightDibreDelay);
 }
 
-void x() {
-  int t = 1000;
+void ole() {
+  int side;
   int start = time();
   forward();
-  while (time() - start < t) {
-    se só o da esquerda ve {
-      lastToSee = esquerda
-    se só o da direita ve {
-      lastToSee = direita
-    }
+  while (time() - start < oleDelay) {
+    if (anyIR(&side))
+    {
+      lastToSee = side;
+      }
     }
   }
-  
 }
 
 //=====Início da função verifyStartStrategy
@@ -201,7 +199,7 @@ void verifyStartStrategy()
   }
   else if ((strategyButton(1)) and (not strategyButton(2)) and (strategyButton(3)))      //101x
   { 
-    startStrategy = &attackStartLeft;
+    startStrategy = &ole;
     //Serial.println("101");
   }/*
   else if ((strategyButton(1)) and (strategyButton(2)) and (not strategyButton(3)))      //110x
