@@ -18,6 +18,7 @@
 #define edgeLimit 600
 #define leftDibreDelay 200
 #define rightDibre 200
+#define oleDelay 200
 
 #define leftFlankAngular 0.20
 #define rightFlankAngular 0.20
