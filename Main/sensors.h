@@ -1,13 +1,11 @@
-#ifndef SENSORS_H           // Caso o SENSOR_H não esteja definido
-#define SENSORS_H           // Define SENSORS_H
+#ifndef SENSORS_H
+#define SENSORS_H
 
-
-//======Declaração das funções
+float readIR();
 bool readIR(bool);
-bool anyIR(int* side);
+bool anyIR(int *);
+bool anyEdge(int *);
 bool readEdge(bool);
-bool anyEdge(int*);
 bool strategyButton(int);
 
-                             
-#endif                      
+#endif
