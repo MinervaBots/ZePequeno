@@ -22,7 +22,7 @@
 #define leftFlankAngular 0.20
 #define rightFlankAngular 0.20
 #define leftDibreAngular 0.40
-#define rightDibreAngular 0.40
+#define rightDibreAngular 0.40  //
 
 #define led 11
 #define leftWheelPWM 21
