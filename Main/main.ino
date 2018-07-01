@@ -1,41 +1,51 @@
-//=====Inclusão das bibliotecas
-#include "constants.h"
+#include "const.h"
+#include "motors.h"
+#include "sensors.h"
 #include "startStop.h"
 #include "strategies.h"
-#include "motors.h"
 #include <IRremote.h>
 
-//=====Início do Setup
-void setup() {
-  //Starta Serial
+// variável para ligar/desligar o robô
+void initialSet();
+
+void setup()
+{
   Serial.begin(9600);
-  //while(!Serial);
+  initialSet();
+  delay(1000);
+}
 
-  //Chamada das funções iniciais
-  initialSet();                 // constants.h
-  verifyStartStrategy();        // strategies.h
-  verifySearchStrategy();       // strategies.h
-  waitButtonOrIR();                 // startStop.h
-  digitalWrite(led, LOW);
-  delay(5000);
+void loop()
+{
+  waitButton();
   digitalWrite(led, HIGH);
-  startStrategy();              // strategies.h
+  //Serial.println("Acendeu");
+  verifyStartStrategy();
+  //verifySearchStrategy();
+  delay(4900);
+  digitalWrite(led, LOW);
+  //Serial.println("Apagou");
+  startStrategy();
+  while (1)
+  {
+    stop();
+    //searchStrategy();
+    //radarSearch();
+    //starSearch();
+    if (verifyToStopButton())   break;
+    //Serial.println("chegou no fim do loop");
+  }
+  delay(1000);
+  Serial.println("desligou");
 }
 
-//=====Início da função loop
-void loop() {
-  verifyToStopButtonOrIR();         // startStop.h 
-  searchStrategy();             // strategies.h
-}
-
-
-//=====Início da função initialSet
+//=== Início da função que seta tudo
 void initialSet() {
-  
-  // Declaração do botão
-  button1.begin();
+  //button1.begin();
+  IRrecv irrecv(RECV_PIN);
+  decode_results results;
 
-  // Declaração de todos os pins
+
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(led, OUTPUT);
   pinMode(leftWheelPWM, OUTPUT);
@@ -46,20 +56,13 @@ void initialSet() {
   pinMode(rightWheelP2, OUTPUT);
   pinMode(leftIR, INPUT);
   pinMode(rightIR, INPUT);
-  pinMode(leftEdge, INPUT);
+  //pinMode(button, INPUT);
+  pinMode(leftEdge, INPUT);            //funções comentadas pois n serão usadas por enquanto
   pinMode(rightEdge, INPUT);
-  pinMode(SWITCH_ONE, INPUT);
-  pinMode(SWITCH_TWO, INPUT);
-  pinMode(SWITCH_THREE, INPUT);
-  pinMode(SWITCH_FOUR, INPUT);
+  pinMode(SWITCH_ONE, INPUT_PULLDOWN);
+  pinMode(SWITCH_TWO, INPUT_PULLDOWN);
+  pinMode(SWITCH_THREE, INPUT_PULLDOWN);
+  pinMode(SWITCH_FOUR, INPUT_PULLDOWN);
+  irrecv.enableIRIn();  //começa a receber
 
-  digitalWrite(led, HIGH);
-
-  //Interrupção Borda
-  attachInterrupt(InterruptEdgePinA, EdgeInterrupt, CHANGE); // ver se precisa mudar o CHANGE
-  attachInterrupt(InterruptEdgePinB, EdgeInterrupt, CHANGE);
-
-  //Interrupção IR
-  attachInterrupt(InterruptLeftIRPin, IRInterrupt, HIGH);  // checar se é HIGH
-  attachInterrupt(InterruptRightIRPin, IRInterrupt, HIGH);
 }
