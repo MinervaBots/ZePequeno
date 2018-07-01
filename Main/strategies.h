@@ -1,23 +1,16 @@
-#ifndef STRATEGIES_H        // Se STRATEGIES_H não esteja declarado
-#define STRATEGIES_H        // Define STRATEGIES_H
+#ifndef STRATEGIES_H
+#define STRATEGIES_H
 
-//=====Declaração das funções
-void starSearch();          // xxx1
 void radarSearch();         // xxx0
-
-void nothing();             // 000x
-void backwardStart();       // 001x
-void archStartRight();      // 010x
-void archStartLeft();       // 011x
-void attackStartRight();    // 100x
-void attackStartLeft();     // 101x
-void spinStartLeft();       // 110x
-void spinStartRight();      // 111x
-
-void avoidEdge();
-
-void verifyStartStrategy();
+void starSearch();
 void verifySearchStrategy();
+void verifyStartStrategy();
+void nothing();
+
+
+void rightFlank();
+void leftFlank();
+void leftDibre();
 
 extern int lastToSee;
 extern void (*searchStrategy)();
