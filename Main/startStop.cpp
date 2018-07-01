@@ -1,33 +1,66 @@
-//=====Inclusão das bibliotecas
 #include <Arduino.h>
 #include "startStop.h"
-#include "constants.h"
+#include "const.h"
 #include "motors.h"
 #include <IRremote.h>
+#include <Button.h>
 
-Button button1(button);
-SoftwareSerial bluetooth(9, 10);
-
-//Declaração do IR
 IRrecv irrecv(RECV_PIN);
-irrecv.enableIRIn(); //Start the receiver
+decode_results results;
+Button button1 = Button(button,PULLUP);
+int aux = 0;
+bool btn_state = false;
+int count = 0;
 
-//=====Início da função waitButton
-void waitButtonOrIR() {
-  while (1) {
-    if (button1.pressed() || irrecv.decode(&results()) ) {
+void waitIR()
+{
+  while (1)
+  {
+    if (irrecv.decode(&results))
+    {
+      Serial.println(results.value, HEX);
       irrecv.resume();
+      break;
+    }
+  }
+}
+
+void verifyToStopIR()
+{
+  if (irrecv.decode(&results))
+  {
+    count++;
+    if (count >= 5)
+    {
+      while (1)
+      {
+        Serial.println(results.value, HEX);
+        Serial.println("entrou while StopIR");
+        irrecv.resume();
+        stop();
+      }
+    }
+  }
+}
+
+
+void waitButton() {
+  while (1) {
+    if (button1.isPressed()) {
+      //Serial.println("pressionado");
       break;
     }
   }
   }
 
-//=====Início da função verifyToStopButton
-void verifyToStopButtonOrIR() {
-  if (button1.pressed() || irrecv.decode(&results))) {
-    while(1){
-      stop();
-      }
+bool verifyToStopButton() {
+  if (button1.isPressed()) {
+    //Serial.println("Pressionado parou");
+    stop();
+    return true;
+    //while(1){
+      //Serial.println("Pressionado parou");
+      //stop();
+      //}
   }
 }
-  
