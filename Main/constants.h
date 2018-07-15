@@ -1,7 +1,7 @@
 #ifndef CONST_H
 #define CONST_H
 
-#define maxPWM 180
+#define maxPWM 160
 #define PWMAcceleration 255
 #define maxPWMForward 255
 #define maxStarPWM 120
@@ -9,21 +9,21 @@
 #define leftFlankPWM 255
 #define rightFlankPWM 255
 
-#define accelerationRate 0.0006   //0.0006
+#define accelerationRate 0.001   //0.0006
 
-#define delayBackEdge 300
+#define delayBackEdge 400
 #define delaySpinEdge 200
-#define leftFlankDelay 300
-#define rightFlankDelay 300
-#define edgeLimit 600
+#define leftFlankDelay 250
+#define rightFlankDelay 250
+#define edgeLimit 200
 #define leftDibreDelay 200
-#define rightDibre 200
+#define rightDibreDelay 200
 #define oleDelay 200
 
 #define leftFlankAngular 0.20
 #define rightFlankAngular 0.20
-#define leftDibreAngular 0.40
-#define rightDibreAngular 0.40  //
+#define leftDibreAngular 0.30
+#define rightDibreAngular 0.30
 
 #define led 11
 #define leftWheelPWM 21
