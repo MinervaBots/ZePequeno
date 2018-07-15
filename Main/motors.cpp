@@ -5,21 +5,21 @@
 
 float forwardSpeed = 0;
  
-void move(float angular, int maxPwm, bool reverse) 
+void move(float angular, int maxPwm, bool reverse)    // 1 = direita    -1 = esquerda
 {
   if (angular != 0) {
     forwardSpeed = 0;
   }
-  float linear = (1 - abs(angular));  
+  float linear = (1 - abs(angular));  // se ele tiver vendo algum lado linear = 0, se tiver vendo os dois linear = 1
   if(reverse)
   {
     linear = -linear;
   }
   
-  float leftSpeed = (linear + angular); 
-  float rightSpeed  = (linear - angular); 
+  float leftSpeed = (linear + angular);          // só direita --> 1, só esquerda --> -1
+  float rightSpeed  = (linear - angular);        // só direita --> -1, só esquerda --> 1
 
-  int leftPWM = map(leftSpeed, -1, 1, -maxPwm, maxPwm);
+  int leftPWM = map(leftSpeed, -1, 1, -maxPwm, maxPwm);   
   int rightPWM = map(rightSpeed, -1, 1, -maxPwm, maxPwm);
 
   rightPWM = abs(constrain(rightPWM, -maxPwm, maxPwm));
@@ -46,15 +46,12 @@ void stop()
   analogWrite(leftWheelPWM, 0);
 }
 
-void forwardRadar()
-{
-  move(0, maxPWMForward);
-}
-
 void forward() {
-  move(0,forwardSpeed*PWMAcceleration);
-  forwardSpeed = min(1, forwardSpeed + accelerationRate);
+  move(0, 255);
+  //move(0,forwardSpeed*PWMAcceleration);
+  //forwardSpeed = min(1, forwardSpeed + accelerationRate);
   //Serial.println(forwardSpeed);
+  
 }
 
 void moveLooking(unsigned int delayToSpin, int movePWM, int lastToSee, bool reverse) {
