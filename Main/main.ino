@@ -3,7 +3,7 @@
 #include "sensors.h"
 #include "startStop.h"
 #include "strategies.h"
-#include <IRremote.h>
+//#include <IRremote.h>
 
 // variável para ligar/desligar o robô
 void initialSet();
@@ -21,30 +21,29 @@ void loop()
   digitalWrite(led, HIGH);
   //Serial.println("Acendeu");
   verifyStartStrategy();
-  //verifySearchStrategy();
+  verifySearchStrategy();
   delay(4900);
   digitalWrite(led, LOW);
   //Serial.println("Apagou");
   startStrategy();
   while (1)
   {
-    stop();
-    //searchStrategy();
+    //stop();
+    searchStrategy();
     //radarSearch();
     //starSearch();
     if (verifyToStopButton())   break;
     //Serial.println("chegou no fim do loop");
   }
   delay(1000);
-  Serial.println("desligou");
+  //Serial.println("desligou");
 }
 
 //=== Início da função que seta tudo
 void initialSet() {
   //button1.begin();
-  IRrecv irrecv(RECV_PIN);
-  decode_results results;
-
+  //IRrecv irrecv(RECV_PIN);
+  //decode_results results;
 
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(led, OUTPUT);
@@ -63,6 +62,6 @@ void initialSet() {
   pinMode(SWITCH_TWO, INPUT_PULLDOWN);
   pinMode(SWITCH_THREE, INPUT_PULLDOWN);
   pinMode(SWITCH_FOUR, INPUT_PULLDOWN);
-  irrecv.enableIRIn();  //começa a receber
+  //irrecv.enableIRIn();  //começa a receber
 
 }
