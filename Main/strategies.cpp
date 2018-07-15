@@ -63,18 +63,17 @@ void radarSearch()
     }
     else
     {
-      move(side , maxPWM * 0.3);
-      //Serial.println("Motor pro lado 1");
+      move(side , maxPWM * 0.25); //Vendo com um sensor
+      lastToSee = side;
+      //Serial.println(lastToSee);
     }
-    lastToSee = side;
   }
   else
   {
-    move(lastToSee, maxPWM * 0.4);
+    move(lastToSee, maxPWM * 0.4); //Não ta vendo ngm
     //Serial.println("Motor pro lado 2");
   }
-  
-  avoidEdge();
+  //avoidEdge();
 }
 
 void starSearch()
@@ -82,7 +81,7 @@ void starSearch()
   //Serial.println("Inicio do loop");
   avoidEdge();
   int side;
-
+  /*
   float dir = readIR();
   if(abs(dir) > 0.8)
   {
@@ -92,7 +91,7 @@ void starSearch()
   {
     move(dir, maxPWM);
   }
-  /*
+  */
   if (anyIR(&side))
   {
     if (side == 0)
@@ -108,11 +107,10 @@ void starSearch()
   }
   else
   {
-    Serial.println("Ta indo pra frente");
+    //Serial.println("Ta indo pra frente");
     move(0, maxStarPWM);
   }
   //Serial.println("Final do loop");
-  */
 }
 
 /*
@@ -146,25 +144,34 @@ void leftFlank()
 
 void leftDibre()
 {
-  move(-leftDibreAngular, leftFlankPWM, true);
+  move(1, leftFlankPWM, true);
+  delay(50);
+  move(0, leftFlankPWM, true);
   delay(leftDibreDelay);
+  /*move(-leftDibreAngular, leftFlankPWM, true);
+  delay(leftDibreDelay);
+  */
 }
 
 void rightDibre()
 {
-  move(rightDibreAngular, leftFlankPWM, true);
+  move(-1, leftFlankPWM, true);
+  delay(50);
+  move(0, leftFlankPWM, true);
   delay(rightDibreDelay);
+  /*move(rightDibreAngular, leftFlankPWM, true);
+  delay(rightDibreDelay);
+  */
 }
 
 void ole() {
   int side;
-  int start = time();
+  int start = millis();
   forward();
-  while (time() - start < oleDelay) {
+  while (millis() - start < oleDelay) {
     if (anyIR(&side))
     {
       lastToSee = side;
-      }
     }
   }
 }
@@ -180,7 +187,7 @@ void verifyStartStrategy()
   else if ((not strategyButton(1)) and (not strategyButton(2)) and (strategyButton(3)))  //001x
   {
     startStrategy = &rightFlank;
-    //Serial.println("001");
+    //Serial.println("001");+
   }
   else if ((not strategyButton(1)) and (strategyButton(2)) and (not strategyButton(3)))  //010x 
   { 
