@@ -3,8 +3,8 @@
 
 #include <Button.h>
 
-void waitIR();
-void verifyToStopIR();
+//void waitIR();
+//void verifyToStopIR();
 void waitButton();
 bool verifyToStopButton();
 void verifyOnButton();
