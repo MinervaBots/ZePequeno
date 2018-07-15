@@ -2,17 +2,17 @@
 #include "startStop.h"
 #include "const.h"
 #include "motors.h"
-#include <IRremote.h>
+//#include <IRremote.h>
 #include <Button.h>
 
-IRrecv irrecv(RECV_PIN);
-decode_results results;
+//IRrecv irrecv(RECV_PIN);
+//decode_results results;
 Button button1 = Button(button,PULLUP);
 int aux = 0;
 bool btn_state = false;
 int count = 0;
 
-void waitIR()
+/*void waitIR()
 {
   while (1)
   {
@@ -42,7 +42,7 @@ void verifyToStopIR()
     }
   }
 }
-
+*/
 
 void waitButton() {
   while (1) {
