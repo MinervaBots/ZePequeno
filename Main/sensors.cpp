@@ -18,9 +18,9 @@ bool readIR(bool right)
 
 bool anyIR(int* side)
 {
-  bool right = readIR(0);
-  bool left = readIR(1);
-  *side = right - left;
+  bool right = readIR(true);
+  bool left = readIR(false);
+  *side = right - left;      //direita =  1  || esquerda =  -1  || os dois = 0
   return (left || right);
 }
 
@@ -37,10 +37,10 @@ bool readEdge(bool right)
 
 bool anyEdge(int *boardSide)
 {
-  bool right = readEdge(0);
-  bool left = readEdge(1);
-  *boardSide = right - left;
-  return (left || right);  
+  bool right = readEdge(true);
+  bool left = readEdge(false);
+  *boardSide = right - left;  // 1 ou -1
+  return (left || right);
 }
 
 //=====Início da função strategyButton
