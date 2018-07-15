@@ -9,6 +9,5 @@ void stop();
 void moveLooking(unsigned int delayToSpin, int movePWM, int lastToSee = 0, bool reverse = false);
 void spin(bool);
 void forward();
-void forwardRadar();
 
 #endif
