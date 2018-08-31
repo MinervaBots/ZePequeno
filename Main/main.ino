@@ -1,16 +1,17 @@
-#include "const.h"
+#include "constants.h"
 #include "motors.h"
 #include "sensors.h"
 #include "startStop.h"
 #include "strategies.h"
 //#include <IRremote.h>
+#include <EEPROM.h>
 
 // variável para ligar/desligar o robô
 void initialSet();
 
 void setup()
 {
-  Serial.begin(9600);
+  //Serial.begin(9600);
   initialSet();
   delay(1000);
 }

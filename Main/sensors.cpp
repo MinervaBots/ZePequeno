@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include "sensors.h"
-#include "const.h"
+#include "constants.h"
+#include "QTRSensors.h"
 
 float lastIRreading = 0;
 float readIR()
@@ -26,13 +27,14 @@ bool anyIR(int* side)
 
 bool readEdge(bool right)
 {
-  /*
-  Serial.print("Edge Direita: ");
-  Serial.print(analogRead(rightEdge));
-  Serial.print("   ||    Edge Esquerda: ");
-  Serial.println(analogRead(leftEdge));
-  */
-  return (right ? (analogRead(rightEdge) < edgeLimit) : (analogRead(leftEdge) < edgeLimit));
+  unsigned int reading;
+  if (right) {
+    rightSensor.readCalibrated(&reading);
+  }
+  else {
+    leftSensor.readCalibrated(&reading);
+  }
+  return (reading < edgeLimit);
 }
 
 bool anyEdge(int *boardSide)
@@ -61,4 +63,18 @@ bool strategyButton(int selectionButton) {
   {
     return digitalRead(SWITCH_FOUR);  
   }                                   // Caso botão 4 seja selecionado, vai retornar SWITCH_FOUR
+}
+
+QTRSensorsAnalog rightSensor((unsigned char[]){
+  rightEdge
+}, 1, 1);
+
+QTRSensorsAnalog leftSensor((unsigned char[]){
+  leftEdge
+}, 1, 1);
+
+void calibrateSensors()
+{
+  rightSensor.calibrate();
+  leftSensor.calibrate();
 }

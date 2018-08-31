@@ -11,11 +11,11 @@
 
 #define accelerationRate 0.001   //0.0006
 
-#define delayBackEdge 400
-#define delaySpinEdge 200
+#define delayBackEdge 200//400
+#define delaySpinEdge 150
 #define leftFlankDelay 250
 #define rightFlankDelay 250
-#define edgeLimit 200
+#define edgeLimit 500
 #define leftDibreDelay 200
 #define rightDibreDelay 200
 #define oleDelay 200

@@ -2,7 +2,9 @@
 #include "motors.h"
 #include "sensors.h"
 #include "strategies.h"
-#include "const.h"
+#include "constants.h"
+#include "startStop.h"
+#include <EEPROM.h>
 
 int lastToSee = -1;
 int lastEdgeSide = -1;
@@ -16,23 +18,21 @@ void avoidEdge()
   if (anyEdge(&boardSide))
   {
     move(0, backPWM, true);
+    delay(delayBackEdge);
     if (boardSide == 0)
     {
-      unsigned long startTime = millis();
-      while (millis() - startTime < delayBackEdge * 1.5) // delay(delayBackEdge*1.5);
-      {
-      }
-      moveLooking(delaySpinEdge * 1.2, maxPWM , -lastEdgeSide);
+      //unsigned long startTime = millis();
+      //moveLooking(delaySpinEdge * 1.2, maxPWM , -lastEdgeSide);
+      move(lastEdgeSide, 255, true);
+      delay(delaySpinEdge);
     }
     else
     {
-
       unsigned long startTime = millis();
-      while (millis() - startTime < delayBackEdge) //delay(delayBackEdge);
-      {
-      }
-      moveLooking(delaySpinEdge, maxPWM * 1.3, -boardSide);
+      //moveLooking(delaySpinEdge * 1.2, maxPWM , -lastEdgeSide);
       lastEdgeSide = boardSide;
+      move(lastEdgeSide, 255, true);
+      delay(delaySpinEdge);
     }
   }
 }
@@ -73,7 +73,7 @@ void radarSearch()
     move(lastToSee, maxPWM * 0.4); //Não ta vendo ngm
     //Serial.println("Motor pro lado 2");
   }
-  //avoidEdge();
+  avoidEdge();
 }
 
 void starSearch()
@@ -213,12 +213,22 @@ void verifyStartStrategy()
   { 
     //startStrategy = &spinStartLeft;
     //Serial.println("110");
-  }/*
-  else //if ((strategyButton(1)) and (strategyButton(2)) and (strategyButton(3)))        //111x
-  {
-    //startStrategy = &spinStartRight;
-    //Serial.println("111");
   }*/
+  else if ((strategyButton(1)) and (strategyButton(2)) and (strategyButton(3)))
+  {
+    delay(500);
+    while(true) {
+      calibrateSensors();
+      //Serial.println(*leftSensor.calibratedMaximumOn);
+      if (button1.isPressed()) {
+        break;
+      }
+    }
+    digitalWrite(led, LOW);
+    putCalibration(*leftSensor.calibratedMinimumOn, *leftSensor.calibratedMaximumOn, *rightSensor.calibratedMinimumOn, *rightSensor.calibratedMaximumOn);
+    while(true){}
+  }
+  getCalibration();
 }
 
 //=====Início da função verifySearchStrategy
@@ -231,4 +241,32 @@ void verifySearchStrategy() {
   {
     searchStrategy = &starSearch;
   }
+}
+
+void  getCalibration() {
+  int leftMin, leftMax, rightMin, rightMax;
+  EEPROM.get(0, leftMin);
+  EEPROM.get(sizeof(int), leftMax);
+  EEPROM.get(2*sizeof(int), rightMin);
+  EEPROM.get(3*sizeof(int), rightMax);
+  calibrateSensors();
+  *leftSensor.calibratedMinimumOn = leftMin;
+  *leftSensor.calibratedMaximumOn = leftMax;
+  *rightSensor.calibratedMinimumOn = rightMin;
+  *rightSensor.calibratedMaximumOn = rightMax;
+  /*
+  Serial.print(leftMin);
+  Serial.print("          ");
+  Serial.println(leftMax);
+  Serial.print(rightMin);
+  Serial.print("          ");
+  Serial.print(rightMax);
+  */
+}
+
+void  putCalibration(int leftMin, int leftMax, int rightMin, int rightMax) {
+  EEPROM.put(0, leftMin);
+  EEPROM.put(sizeof(int), leftMax);
+  EEPROM.put(2*sizeof(int), rightMin);
+  EEPROM.put(3*sizeof(int), rightMax);
 }

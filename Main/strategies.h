@@ -13,6 +13,9 @@ void leftFlank();
 void leftDibre();
 void ole();
 
+void getCalibration();
+void putCalibration(int, int, int, int);
+
 extern int lastToSee;
 extern void (*searchStrategy)();
 extern void (*startStrategy)();
